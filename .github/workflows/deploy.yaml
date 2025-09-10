@@ -1,4 +1,4 @@
-name: Build and Deploy Docker Image
+name: Build and Deploy Docker Images
 
 on:
   push:
@@ -19,6 +19,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -26,10 +29,21 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push Docker Image to GHCR
+      - name: Build and Push Standard Image
         uses: docker/build-push-action@v6
         with:
+          context: .
           push: true
+          target: typst-alpine
           tags: |
             ghcr.io/nakanishi123/typst-docker:0.13.1-alpine
             ghcr.io/nakanishi123/typst-docker:latest
+
+      - name: Build and Push JP Image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          target: typst-jp-alpine
+          tags: |
+            ghcr.io/nakanishi123/typst-docker:0.13.1-jp-alpine
