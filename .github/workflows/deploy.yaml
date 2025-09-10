@@ -37,7 +37,6 @@ jobs:
           target: typst-alpine
           tags: |
             ghcr.io/nakanishi123/typst-docker:0.13.1-alpine
-            ghcr.io/nakanishi123/typst-docker:latest
 
       - name: Build and Push JP Image
         uses: docker/build-push-action@v6
@@ -47,3 +46,4 @@ jobs:
           target: typst-jp-alpine
           tags: |
             ghcr.io/nakanishi123/typst-docker:0.13.1-jp-alpine
+            ghcr.io/nakanishi123/typst-docker:latest
