@@ -31,5 +31,5 @@ jobs:
         with:
           push: true
           tags: |
-            ghcr.io/nakanishi123/typst:0.13.1-alpine
-            ghcr.io/nakanishi123/typst:latest
+            ghcr.io/nakanishi123/typst-docker:0.13.1-alpine
+            ghcr.io/nakanishi123/typst-docker:latest
