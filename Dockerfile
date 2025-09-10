@@ -8,8 +8,6 @@ RUN git clone --depth=1 -b v0.13.1 --single-branch https://github.com/typst/typs
 WORKDIR /app/typst
 RUN cargo build -p typst-cli --release
 
-FROM builder AS builder-jp
-
 WORKDIR /app
 RUN git clone -b 20250811 --depth 1 https://github.com/trueroad/HaranoAjiFonts.git
 
@@ -24,9 +22,12 @@ FROM alpine:3.22.1 AS typst-jp-alpine
 
 RUN apk add --no-cache fontconfig
 
-COPY --from=builder-jp /app/HaranoAjiFonts/*.otf /usr/share/fonts/
-COPY --from=builder-jp /app/typst/target/release/typst /usr/local/bin/typst
+COPY --from=builder /app/HaranoAjiFonts/HaranoAjiMincho-Regular.otf /usr/share/fonts/
+COPY --from=builder /app/HaranoAjiFonts/HaranoAjiMincho-Bold.otf /usr/share/fonts/
+COPY --from=builder /app/HaranoAjiFonts/HaranoAjiGothic-Regular.otf /usr/share/fonts/
+COPY --from=builder /app/HaranoAjiFonts/HaranoAjiGothic-Bold.otf /usr/share/fonts/
+COPY --from=builder /app/typst/target/release/typst /usr/local/bin/typst
 
-RUN fc-cache -f -v
+RUN fc-cache -fv
 
 CMD ["typst"]
