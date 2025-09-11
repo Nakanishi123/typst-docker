@@ -11,6 +11,7 @@ jobs:
     permissions:
       issues: write
     steps:
+      - uses: actions/checkout@v5
       - name: Download last checked version
         uses: actions/download-artifact@v5
         with:
