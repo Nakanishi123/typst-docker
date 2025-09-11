@@ -2,7 +2,7 @@ name: Check Typst Release
 
 on:
   schedule:
-    - cron: "0 0 * * 0" # Every Sunday at midnight
+    - cron: "0 0 */5 * *" # Every 5 days
   workflow_dispatch:
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
 
           if [ "$LAST_VERSION" != "$LATEST_RELEASE" ]; then
             gh issue create \
-              --title "New Typst release detected: $LATEST_RELEASE" \
-              --body "A new release of Typst is available.\nSee the details here: [$LATEST_RELEASE]($RELEASE_URL)"
+              --title "New Typst release: $LATEST_RELEASE" \
+              --body "A new release of Typst is available. See the details here: [$LATEST_RELEASE]($RELEASE_URL)"
           fi
           echo "$LATEST_RELEASE" > last_checked_typst_version.txt
