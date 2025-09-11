@@ -18,7 +18,8 @@ jobs:
         continue-on-error: true
 
       - name: Check for new Typst release and create issue if found
-        id: check_release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           RELEASE_INFO_JSON=$(gh api "repos/typst/typst/releases/latest")
           LATEST_RELEASE=$(echo "$RELEASE_INFO_JSON" | jq -r .tag_name)
