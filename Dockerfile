@@ -9,7 +9,7 @@ WORKDIR /app/typst
 RUN cargo build -p typst-cli --release
 
 WORKDIR /app
-RUN git clone -b 20250811 --depth 1 https://github.com/trueroad/HaranoAjiFonts.git
+RUN git clone -b 20250811 --depth 1 --single-branch https://github.com/trueroad/HaranoAjiFonts.git
 
 # 日本語フォントなしのイメージ
 FROM alpine:3.22.1 AS typst-alpine
