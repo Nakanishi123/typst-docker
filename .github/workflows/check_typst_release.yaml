@@ -12,11 +12,11 @@ jobs:
       issues: write
     steps:
       - uses: actions/checkout@v5
-      - name: Download last checked version
-        uses: actions/download-artifact@v5
+      - name: Restore last checked version from cache
+        uses: actions/cache@v4
         with:
-          name: last-typst-version
-        continue-on-error: true
+          path: last_checked_typst_version.txt
+          key: last_checked_typst_version
 
       - name: Check for new Typst release and create issue if found
         env:
@@ -34,9 +34,3 @@ jobs:
               --body "A new release of Typst is available.\nSee the details here: [$LATEST_RELEASE]($RELEASE_URL)"
           fi
           echo "$LATEST_RELEASE" > last_checked_typst_version.txt
-
-      - name: Upload new version file
-        uses: actions/upload-artifact@v4
-        with:
-          name: last-typst-version
-          path: last_checked_typst_version.txt
