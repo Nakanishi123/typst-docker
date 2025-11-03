@@ -1,9 +1,9 @@
-FROM rust:1.89.0-alpine3.22 AS builder
+FROM rust:1.91.0-alpine3.22 AS builder
 
 RUN apk add --no-cache git musl-dev openssl-dev openssl-libs-static pkgconfig
 
 WORKDIR /app
-RUN git clone -b v0.13.1 --depth 1 --single-branch https://github.com/typst/typst.git
+RUN git clone -b v0.14.0 --depth 1 --single-branch https://github.com/typst/typst.git
 
 WORKDIR /app/typst
 RUN cargo build -p typst-cli --release
@@ -12,7 +12,7 @@ WORKDIR /app
 RUN git clone -b 20250811 --depth 1 --single-branch https://github.com/trueroad/HaranoAjiFonts.git
 
 # 日本語フォントなしのイメージ
-FROM alpine:3.22.1 AS typst-alpine
+FROM alpine:3.22.2 AS typst-alpine
 
 COPY --from=builder /app/typst/target/release/typst /usr/local/bin/typst
 
