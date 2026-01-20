@@ -3,7 +3,7 @@ FROM rust:1.91.0-alpine3.22 AS builder
 RUN apk add --no-cache git musl-dev openssl-dev openssl-libs-static pkgconfig
 
 WORKDIR /app
-RUN git clone -b v0.14.0 --depth 1 --single-branch https://github.com/typst/typst.git
+RUN git clone -b v0.14.2 --depth 1 --single-branch https://github.com/typst/typst.git
 
 WORKDIR /app/typst
 RUN cargo build -p typst-cli --release
